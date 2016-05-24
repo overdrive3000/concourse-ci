@@ -27,8 +27,6 @@ for arg in "$@"; do
   esac
 done
 
-pg_ctlcluster 9.5 main start
-
 if [ ! -f "$CONCOURSE_WEB/tsa_key" ]; then
   if [ -f "$CONCOURSE_KEYS/tsa_key" ]; then
     echo '--- Using private TSA key from `'"$CONCOURSE_KEYS/tsa_key"'`.'
@@ -107,5 +105,5 @@ exec su concourse-web -s /usr/local/bin/concourse -- web \
     --session-signing-key "$CONCOURSE_WEB/session_signing_key" \
     --tsa-host-key "$CONCOURSE_WEB/tsa_key" \
     --tsa-authorized-keys "$CONCOURSE_WEB/authorized_worker_keys" \
-    --postgres-data-source "${CONCOURSE_DATA_SOURCE:-postgres://concourse:ci@localhost/concourse}" \
+    --postgres-data-source "${CONCOURSE_DATA_SOURCE:-postgres://${DB_ENV_POSTGRES_USER}:${DB_ENV_POSTGRES_PASSWORD}@${DB_PORT_5432_TCP_ADDR}/${DB_ENV_POSTGRES_USER}}" \
     ${CONCOURSE_URL:+--external-url "${CONCOURSE_URL}"}

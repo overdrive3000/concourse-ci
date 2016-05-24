@@ -14,22 +14,19 @@
 
 FROM ubuntu:16.04
 
-RUN apt-get update -y \
- && apt-get upgrade -y \
- && apt-get install -y curl iptables iproute2 postgresql openssh-client \
- && apt-get clean -y
-RUN curl -L https://github.com/concourse/concourse/releases/download/v1.2.0/concourse_linux_amd64 -o /usr/local/bin/concourse \
- && chmod 755 /usr/local/bin/concourse
-
 ENV CONCOURSE=/var/lib/concourse
+ENV CONCOURSE_VERSION=v1.2.0
 ENV CONCOURSE_WEB="$CONCOURSE/web" \
     CONCOURSE_WORK="$CONCOURSE/work" \
     CONCOURSE_KEYS="$CONCOURSE/keys"
 
-RUN pg_ctlcluster 9.5 main start \
- && su postgres -s /usr/bin/psql -c "CREATE ROLE concourse WITH LOGIN PASSWORD 'ci';" \
- && su postgres -s /usr/bin/psql -c "CREATE DATABASE concourse WITH OWNER concourse;" \
- && pg_ctlcluster 9.5 main stop
+RUN apt-get update -y \
+ && apt-get upgrade -y \
+ && apt-get install -y curl iptables iproute2 openssh-client \
+ && apt-get clean -y
+RUN curl -L https://github.com/concourse/concourse/releases/download/${CONCOURSE_VERSION}/concourse_linux_amd64 -o /usr/local/bin/concourse \
+ && chmod 755 /usr/local/bin/concourse
+
 
 RUN mkdir -p "$CONCOURSE" "$CONCOURSE_WORK" \
  && useradd -d "$CONCOURSE_WEB" -s /bin/false -m -U concourse-web
