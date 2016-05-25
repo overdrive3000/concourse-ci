@@ -29,7 +29,7 @@ done
 if [ ! -f "$CONCOURSE/tsa_key.pub" ]; then
   if [ ${CONCOURSE_TSA_PUBKEY:+set} ]; then
     echo 'Using public TSA key from environment.'
-    cat <<<"$CONCOURSE_TSA_PUBKEY" >"$CONCOURSE/tsa_key.pub"
+    cat "$CONCOURSE_TSA_PUBKEY" >"$CONCOURSE/tsa_key.pub"
   elif [ -f "$CONCOURSE_KEYS/tsa_key.pub" ]; then
     echo 'Using public TSA key from `'"$CONCOURSE_KEYS/tsa_key.pub"'`.'
     cp "$CONCOURSE_KEYS/tsa_key.pub" "$CONCOURSE/tsa_key.pub"
@@ -44,7 +44,7 @@ fi
 if [ ! -f "$CONCOURSE/worker_key" ]; then
   if [ ${CONCOURSE_WORKER_KEY:+set} ]; then
     echo 'Using private worker key from environment.'
-    cat <<<"$CONCOURSE_WORKER_KEY" >"$CONCOURSE/worker_key"
+    cat "$CONCOURSE_WORKER_KEY" >"$CONCOURSE/worker_key"
   elif [ -f "$CONCOURSE_KEYS/worker_key" ]; then
     echo 'Using private worker key from `'"$CONCOURSE_KEYS/worker_key"'`.'
     cp "$CONCOURSE_KEYS/worker_key" "$CONCOURSE/worker_key"
