@@ -61,5 +61,4 @@ fi
 
 exec concourse worker --work-dir="$CONCOURSE_WORK" \
   --tsa-host="${CONCOURSE_TSA_HOST:-0.0.0.0}" --tsa-port "${CONCOURSE_TSA_PORT:-2222}" \
-  --tsa-public-key="$CONCOURSE/tsa_key.pub" --tsa-worker-private-key="$CONCOURSE/worker_key" \
-  --baggageclaim-bind-ip="127.0.0.1" --bind-ip="127.0.0.1"
+  --tsa-public-key="$CONCOURSE/tsa_key.pub" --tsa-worker-private-key="$CONCOURSE/worker_key"
