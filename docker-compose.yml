@@ -5,7 +5,7 @@ db:
     POSTGRES_PASSWORD: ci
 
 concourse-web:
-  image: meteogroup/concourse-ci
+  image: overdrive3000/concourse-ci
   entrypoint: /concourse-web.sh
   environment:
     CONCOURSE_URL:
@@ -24,7 +24,7 @@ concourse-web:
   - 2222:2222
 
 concourse-worker:
-  image: meteogroup/concourse-ci
+  image: overdrive3000/concourse-ci
   entrypoint: /concourse-worker.sh
   privileged: true
   environment:
